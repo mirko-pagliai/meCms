@@ -1,5 +1,13 @@
 # 2.x branch
 ## 2.30 branch
+### 2.30.1
+* if Recaptcha is not used, an exception is no longer throwned when configuration
+    keys are missing;
+* added `CreateSamplePostCommand`, this creates a sample post during installation;
+* fixed the `MenuBuilderHelper` and the admin sidebar, menus are now better displayed;
+* a major improvement of the descriptions, thanks to `phpstan`;
+* updated for `php-tools` 1.5.1, `me-tools` 2.20.1 and `phpuseragentparser` 1.
+
 ### 2.30.0
 * starting from this release, it no longer contains the code for banners and photos,
     which has been split into [me-cms-banners](//github.com/mirko-pagliai/me-cms-banners)

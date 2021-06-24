@@ -106,7 +106,7 @@ class PostsController extends AppController
      * @param string $date Date as `today`, `yesterday`, `YYYY/MM/dd`,
      *  `YYYY/MM` or `YYYY`
      * @return \Cake\Http\Response|null|void
-     * @use \MeCms\Controller\Traits\GetStartAndEndDateTrait::getStartAndEndDate()
+     * @uses \MeCms\Controller\Traits\GetStartAndEndDateTrait::getStartAndEndDate()
      */
     public function indexByDate(string $date)
     {
@@ -163,7 +163,7 @@ class PostsController extends AppController
     public function rss(): void
     {
         //This method works only for RSS
-        Exceptionist::isTrue($this->RequestHandler->prefers('rss'), ForbiddenException::class);
+        Exceptionist::isTrue($this->RequestHandler->prefers('rss'), '', ForbiddenException::class);
         $this->viewBuilder()->setClassName('Feed.Rss');
 
         $posts = $this->Posts->find('active')

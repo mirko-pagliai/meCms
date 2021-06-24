@@ -39,8 +39,9 @@ class AddUserCommandTest extends TestCase
      * Test for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
+        /** @var \MeCms\Model\Table\UsersTable $Users */
         $Users = TableRegistry::getTableLocator()->get('MeCms.Users');
         $example = ['myusername', 'password1/', 'password1/', 'mail@example.com', 'Alfa', 'Beta'];
 

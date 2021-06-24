@@ -24,6 +24,11 @@ use MeCms\TestSuite\TableTestCase;
 class UsersGroupsTableTest extends TableTestCase
 {
     /**
+     * @var \MeCms\Model\Table\UsersGroupsTable
+     */
+    protected $Table;
+
+    /**
      * @var bool
      */
     public $autoFixtures = false;
@@ -41,7 +46,7 @@ class UsersGroupsTableTest extends TableTestCase
      * Test for `buildRules()` method
      * @test
      */
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
         $example = ['name' => 'group', 'label' => 'Group label'];
 
@@ -61,7 +66,7 @@ class UsersGroupsTableTest extends TableTestCase
      * Test for `initialize()` method
      * @test
      */
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $this->assertEquals('users_groups', $this->Table->getTable());
         $this->assertEquals('label', $this->Table->getDisplayField());

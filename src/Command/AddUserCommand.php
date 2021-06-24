@@ -27,6 +27,11 @@ use MeTools\Console\Command;
 class AddUserCommand extends Command
 {
     /**
+     * @var \MeCms\Model\Table\UsersTable
+     */
+    protected $Users;
+
+    /**
      * Hook method for defining this command's option parser
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
      * @return \Cake\Console\ConsoleOptionParser
@@ -87,7 +92,7 @@ class AddUserCommand extends Command
         }
 
         //Checks the group IDs
-        if (!array_key_exists($user['group_id'], $groups)) {
+        if (!array_key_exists((string)$user['group_id'], $groups)) {
             return $io->error(__d('me_cms', 'Invalid group ID'));
         }
 

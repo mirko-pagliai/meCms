@@ -25,6 +25,7 @@ use MeCms\TestSuite\ControllerTestCase;
 
 /**
  * PostsControllerTest class
+ * @property \MeCms\Controller\PostsController&\PHPUnit\Framework\MockObject\MockObject $Controller
  */
 class PostsControllerTest extends ControllerTestCase
 {
@@ -59,7 +60,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `index()` method
      * @test
      */
-    public function testIndex()
+    public function testIndex(): void
     {
         $url = ['_name' => 'posts'];
         $this->get($url);
@@ -85,7 +86,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `indexByDate()` method
      * @test
      */
-    public function testIndexByDate()
+    public function testIndexByDate(): void
     {
         $date = '2016/12/29';
         $url = ['_name' => 'postsByDate', $date];
@@ -135,7 +136,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `rss()` method
      * @test
      */
-    public function testRss()
+    public function testRss(): void
     {
         $this->get('/posts/rss');
         $this->assertResponseOkAndNotEmpty();
@@ -154,7 +155,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `search()` method
      * @test
      */
-    public function testSearch()
+    public function testSearch(): void
     {
         $pattern = 'Text of the seventh';
         $url = ['_name' => 'postsSearch'];
@@ -200,7 +201,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `view()` method
      * @test
      */
-    public function testView()
+    public function testView(): void
     {
         $this->get(['_name' => 'post', 'first-post']);
         $this->assertResponseOkAndNotEmpty();
@@ -215,7 +216,7 @@ class PostsControllerTest extends ControllerTestCase
      * Tests for `preview()` method
      * @test
      */
-    public function testPreview()
+    public function testPreview(): void
     {
         $this->setUserGroup('user');
         $this->get(['_name' => 'postsPreview', 'inactive-post']);

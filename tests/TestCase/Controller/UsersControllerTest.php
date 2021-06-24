@@ -31,9 +31,19 @@ use Tokens\Controller\Component\TokenComponent;
 class UsersControllerTest extends ControllerTestCase
 {
     /**
-     * @var \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeCms\Model\Table\UsersTable
      */
-    public $Token;
+    protected $Table;
+
+    /**
+     * @var \Tokens\Controller\Component\TokenComponent&\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $Token;
+
+    /**
+     * @var \MeCms\Controller\UsersController
+     */
+    protected $_controller;
 
     /**
      * Fixtures
@@ -60,12 +70,12 @@ class UsersControllerTest extends ControllerTestCase
      * Asserts cookie values which are encrypted by the CookieComponent
      * @param mixed $expected The expected contents
      * @param string $name The cookie name
-     * @param string|bool $encrypt Encryption mode to use
+     * @param string $encrypt Encryption mode to use
      * @param string|null $key Encryption key used
      * @param string $message The failure message that will be appended to the generated message
      * @return void
      */
-    public function assertCookieEncrypted($expected, $name, $encrypt = 'aes', $key = null, $message = ''): void
+    public function assertCookieEncrypted($expected, string $name, string $encrypt = 'aes', ?string $key = null, string $message = ''): void
     {
         $key = $key ?: Configure::read('Security.cookieKey', md5(Configure::read('Security.salt', '')));
 
@@ -97,15 +107,17 @@ class UsersControllerTest extends ControllerTestCase
     {
         parent::controllerSpy($event, $controller);
 
-        $this->_controller->LoginRecorder = $this->getMockForComponent(LoginRecorderComponent::class);
-        $this->_controller->LoginRecorder->method('setConfig')->will($this->returnSelf());
+        /** @var \MeCms\Controller\Component\LoginRecorderComponent&\PHPUnit\Framework\MockObject\MockObject $LoginRecorder */
+        $LoginRecorder = $this->getMockForComponent(LoginRecorderComponent::class);
+        $LoginRecorder->method('setConfig')->will($this->returnSelf());
+        $this->_controller->LoginRecorder = $LoginRecorder;
     }
 
     /**
      * Test for `loginWithCookie()` method
      * @test
      */
-    public function testLoginWithCookie()
+    public function testLoginWithCookie(): void
     {
         $url = ['_name' => 'login'];
 
@@ -147,7 +159,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `beforeFilter()` method
      * @test
      */
-    public function testBeforeFilter()
+    public function testBeforeFilter(): void
     {
         parent::testBeforeFilter();
 
@@ -160,7 +172,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `activation()` method
      * @test
      */
-    public function testActivation()
+    public function testActivation(): void
     {
         //Creates a token for an active user
         $tokenOptions = ['type' => 'signup', 'user_id' => 1];
@@ -195,7 +207,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `activationResend()` method
      * @test
      */
-    public function testActivationResend()
+    public function testActivationResend(): void
     {
         $url = ['_name' => 'activationResend'];
 
@@ -234,7 +246,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `login()` method
      * @test
      */
-    public function testLogin()
+    public function testLogin(): void
     {
         $url = ['_name' => 'login'];
 
@@ -282,7 +294,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `logout()` method
      * @test
      */
-    public function testLogout()
+    public function testLogout(): void
     {
         $this->cookie('login', 'value');
         $this->get(['_name' => 'logout']);
@@ -295,7 +307,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `passwordForgot()` method
      * @test
      */
-    public function testPasswordForgot()
+    public function testPasswordForgot(): void
     {
         $url = ['_name' => 'passwordForgot'];
 
@@ -336,7 +348,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `passwordReset()` method
      * @test
      */
-    public function testPasswordReset()
+    public function testPasswordReset(): void
     {
         //Creates the token for an active user
         $tokenOptions = ['type' => 'password_forgot', 'user_id' => 1];
@@ -378,7 +390,7 @@ class UsersControllerTest extends ControllerTestCase
      * Test for `signup()` method
      * @test
      */
-    public function testSignup()
+    public function testSignup(): void
     {
         $data = [
             'username' => 'example',
